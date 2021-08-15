@@ -23,14 +23,9 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
 
-    - name: Install basic packages that are required for tests
-      run: |
-        sudo apt-get update -y
-        sudo apt-get install -y python3-pip python3-setuptools libsystemd-dev
-
     - name: Install Dependencies
       run: |
-        pip install -r requirements-test.txt
+        pip install -r requirements.txt
 
     - name: Execute tests
       run: |
