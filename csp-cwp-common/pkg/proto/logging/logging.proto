@@ -1,0 +1,44 @@
+syntax = 'proto3';
+
+package logging;
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.goproto_getters_all) = false;
+option (gogoproto.populate_all) = true;
+option (gogoproto.equal_all)   = true;
+option (gogoproto.verbose_equal_all)   = true;
+
+option (gogoproto.compare_all) = true;
+
+option (gogoproto.testgen_all) = true;
+option (gogoproto.benchgen_all) = true;
+
+
+message FileLogging {
+  // Dir determines the directory in which to store log files.
+  // It defaults to os.TempDir() if empty.
+  string Dir        = 1  [(gogoproto.moretags) = "envconfig:\"ALCIDE_LOG_DIR\"             default:\"\"      doc:\"defaults to os.TempDir() if empty\""];
+
+  // MaxSize the max size in MB of the logfile before it's rolled
+  int32  MaxSizeMB  = 2  [(gogoproto.moretags) = "envconfig:\"ALCIDE_LOGFILE_MAX_SIZE_MB\" default:\"10\"      doc:\"max size in MB of the logfile before it's rolled\""];
+
+  // MaxBackups the max number of rolled files to keep
+  int32  MaxBackups = 3  [(gogoproto.moretags) = "envconfig:\"ALCIDE_LOGFILE_MAX_BACKUPS\" default:\"4\"      doc:\"max number of rolled files to keep\""];
+
+  // MaxAge the max age in days to keep a logfile
+  int32  MaxAge     = 4  [(gogoproto.moretags) = "envconfig:\"ALCIDE_LOGFILE_MAX_AGE\"     default:\"7\"      doc:\"the max age in days to keep a logfile\""];
+
+  // Compress determines if the rotated log files should be compressed
+  // using gzip.
+  bool   Compress   = 5 [(gogoproto.moretags) = "envconfig:\"ALCIDE_LOGFILE_COMPRESS\"     default:\"true\"  doc:\"determines if the rotated log files should be compressed\""];
+
+  // LocalTime determines if the time used for formatting the timestamps in
+  // backup files is the computer's local time.
+  // The default is to use UTC  time.
+  bool   LocalTimeFileTimestamp = 6 [(gogoproto.moretags) = "envconfig:\"ALCIDE_LOGFILE_LOCAL_TIMESTAMP\"    default:\"false\"                               doc:\"Controls whether a client verifies the server's certificate chain and host name\""];
+
+}

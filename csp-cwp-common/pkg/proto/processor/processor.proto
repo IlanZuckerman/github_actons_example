@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package processor;
+
+import  "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.goproto_getters_all) = false;
+option (gogoproto.populate_all) = true;
+option (gogoproto.equal_all)   = true;
+option (gogoproto.verbose_equal_all)   = true;
+//option (gogoproto.compare_all) = true; //https://github.com/gogo/protobuf/issues/230
+option (gogoproto.testgen_all) = true;
+option (gogoproto.benchgen_all) = true;
+
+//Add event types here
+enum EventType {
+    DummyEventType = 0;
+}
+
+//Sepcific events go here:
+message DummyEvent {
+    string Info = 1;
+}
+
+//The Common Processor event format:
+message Event {
+    EventType Type = 1;  //Event type
+    oneof Info {         //One of the specific events information.
+        DummyEvent Dummy = 2;
+    }
+}
+
+//Add query types here:
+enum QueryType {
+    DummyQueryType = 0;
+}
+
+//Sepcific queries go here:
+message DummyQuery {
+    string Info = 1;
+}
+
+//The Common Processor query format:
+message Query {
+    QueryType Type = 1; //Query Type
+    string UUID = 2;    //Query UUID, to corrlate the QueryResult with.
+    oneof Info {        //One of the specific queries information.
+        DummyQuery Dummy = 3;
+    }
+}
+
+//Sepcific query results go here:
+message DummyQueryResult {
+    string Info = 1;
+}
+
+//The Common Processor query result format:
+message QueryResult {
+    QueryType Type = 1; //Query result type, correlates with the invoking Query type.
+    string UUID = 2;    //Query result UUID, correlates with the invoking Query UUID.
+    oneof Info {        //One of the specific queries result information.
+        DummyQueryResult Dummy = 3;
+    }
+}
+
+//The heartbeat message
+message Heartbeat {
+    string ConfigurationUUID = 1;
+    uint64 ConfigurationVersion = 2;
+    string AgentVersion = 3;
+    string Status = 4;
+}
+
+//Configuration passed to a processor
+message Configuration {
+    string UUID = 1;
+    uint64 Version = 2;
+    string Info = 3;
+}
