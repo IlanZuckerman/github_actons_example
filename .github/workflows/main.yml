@@ -30,3 +30,4 @@ jobs:
       with:
         branch: gcr_login # The branch the action should deploy to.
         folder: csp-cwp-common/artifacts/coverage/ # The folder the action should deploy.
+        token: ${{ secrets.GITHUB_TOKEN }}
