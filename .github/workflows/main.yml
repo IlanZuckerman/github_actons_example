@@ -29,4 +29,4 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@4.1.4
       with:
         branch: gcr_login # The branch the action should deploy to.
-        folder: csp-cwp-common/artifacts/coverage/ # The folder the action should deploy.
+        folder: artifacts/coverage/ # The folder the action should deploy.
