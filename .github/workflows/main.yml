@@ -10,23 +10,23 @@ jobs:
     steps:
     - name: Checkout source tree
       uses: actions/checkout@v2
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v1
+
+    - name: Login to GCR
+      uses: docker/login-action@v1
       with:
-        python-version: 3.7
-        
-    - name: Lint with flake8
-      run: |
-        pip install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
+        registry: gcr.io
+        username: _json_key
+        password: ${{ secrets.GCR_JSON_KEY }}
 
-    - name: Install Dependencies
+    - name: Run make devbox-shell
+      working-directory: ./csp-cwp-common
+#      This is a WA for the problem where actions don't allow container TTY with error: 'the input device is not a TTY'
+      shell: 'script -q -e -c "bash {0}"'
       run: |
-        pip install -r requirements.txt
+        make devbox-shell CMD='"make all"'
 
-    - name: Execute tests
-      run: |
-        python3 -m pytest .
+    - name: Deploy 🚀
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        publish_dir: ./csp-cwp-common/artifacts/coverage/ # The folder the action should deploy.
+        github_token: ${{ secrets.GITHUB_TOKEN }}

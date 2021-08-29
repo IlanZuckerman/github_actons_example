@@ -1,0 +1,88 @@
+artifacts/
+links/
+codegenbin/*
+#build/
+build.conf
+out/
+vendor/
+.idea/*.xml
+.gradle*
+keys/*
+*.iml
+.project
+.cproject
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*$py.class
+**.pyc
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# we negate the above rules for folders - otherise, for example, a folder named gitlab.com/ would be ignored by the *.com rule 
+!*.com/
+!*.class/
+!*.dll/
+!*.exe/
+!*.o/
+!*.so/
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.rar
+*.tar
+*.zip
+*.rpm
+*.deb
+
+# see comment above regarding negation
+!*.7z/
+!*.dmg/
+!*.gz/
+!*.iso/
+!*.rar/
+!*.tar/
+!*.zip/
+!*.rpm/
+!*.deb/
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+!*.log/
+!*.sql/
+!*.sqlite/
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+tags
+
+#Go Coverage we generate
+**.coverprofile
+**.test
+*.pb.go
+*pb_test.go

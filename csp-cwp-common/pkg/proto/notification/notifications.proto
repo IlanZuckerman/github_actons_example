@@ -1,0 +1,57 @@
+//TODO: move to common proto
+syntax = "proto3";
+
+package notification;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+//option (gogoproto.goproto_getters_all) = false;
+option (gogoproto.populate_all) = true;
+option (gogoproto.equal_all) = true;
+option (gogoproto.verbose_equal_all) = true;
+//
+//option (gogoproto.compare_all) = true;
+//
+option (gogoproto.testgen_all) = true;
+option (gogoproto.benchgen_all) = true;
+
+//option java_package = "io.alcide.messages";
+//option java_multiple_files = true;
+
+
+message NotificationUpdate {
+  string UpdateUid = 1 [(gogoproto.moretags) = "doc:\"update UID\""];
+  NotificationType Type = 2 [(gogoproto.moretags) = "doc:\"Type of the destination receiver\""];
+  int64 Timestamp =3 [(gogoproto.moretags) = "doc:\"UNIX Timestamp of the update creation in the Backend\""];
+  bytes Data = 4 [(gogoproto.moretags) = "doc:\"The actual data. a struct of the notification\""];
+}
+
+message DiagnosticsConfigUpdate {
+  EnableDisableEnum EnableSentry = 1 [(gogoproto.moretags) = "default:\"-1\"  doc:\"Enable Sentry logging\""];
+  EnableDisableEnum EnablePprof = 2 [(gogoproto.moretags) = "default:\"-1\"  doc:\"Enable Pprof diagnostics\""];
+  EnableDisableEnum EnableGops = 3 [(gogoproto.moretags) = "default:\"-1\"  doc:\"Enable GOPS diagnostics\""];
+  EnableDisableEnum EnableJaeger = 4 [(gogoproto.moretags) = "default:\"-1\"  doc:\"Enable Jaeger reporting\""];
+
+  string SentryDsn = 5 [(gogoproto.moretags) = "default:\" \"  doc:\"Sentry Data Source Name URL address\""];
+  EnableDisableEnum SetDebug = 6 [(gogoproto.moretags) = "default:\"-1\"  doc:\"Set sentry to debug mode\""];
+  string PprofPort = 7 [(gogoproto.moretags) = "default:\" \"  doc:\"Pprof string port number\""];
+}
+
+message DummyStruct {
+  string Data = 1 [(gogoproto.moretags) = "default:\" \" doc:\"Dummy struct for testing\""];
+}
+
+enum EnableDisableEnum {
+  Disable = 0;
+  Enable  = 1;
+  Unchanged = -1;
+}
+
+enum NotificationType {
+  UNDEFINED     = 0;
+  DIAGNOSTICS = 1;
+  TEST      = 999;
+}
