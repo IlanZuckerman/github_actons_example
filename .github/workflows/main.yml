@@ -25,10 +25,9 @@ jobs:
       run: |
         make devbox-shell CMD='"make all"'
 
-#    - name: Install Dependencies
-#      run: |
-#        pip install -r requirements.txt
-#
-#    - name: Execute tests
-#      run: |
-#        python3 -m pytest .
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.1.4
+      with:
+        branch: master # The branch the action should deploy to.
+        folder: csp-cwp-common/artifacts/coverage/ # The folder the action should deploy.
+
