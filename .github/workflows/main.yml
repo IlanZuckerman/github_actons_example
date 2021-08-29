@@ -26,8 +26,7 @@ jobs:
         make devbox-shell CMD='"make all"'
 
     - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@4.1.4
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        branch: gcr_login # The branch the action should deploy to.
-        folder: csp-cwp-common/artifacts/coverage/ # The folder the action should deploy.
-        token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./csp-cwp-common/artifacts/coverage/ # The folder the action should deploy.
+        github_token: ${{ secrets.GITHUB_TOKEN }}
