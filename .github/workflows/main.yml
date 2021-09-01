@@ -24,9 +24,3 @@ jobs:
       shell: 'script -q -e -c "bash {0}"'
       run: |
         make devbox-shell CMD='"make all"'
-
-    - name: Deploy 🚀
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        publish_dir: ./csp-cwp-common/artifacts/coverage/ # The folder the action should deploy.
-        github_token: ${{ secrets.GITHUB_TOKEN }}
