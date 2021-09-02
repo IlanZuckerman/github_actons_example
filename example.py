@@ -4,4 +4,3 @@ def odd_numbers(num_lst):
 
 
 print(odd_numbers([18, 20]))  # second
-print(odd_numbers([4, 6, 8, 10]))  # first
